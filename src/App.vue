@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <todo-list @delete="clearList" @createItem="createItem" :todos="todos" />
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import TodoList from "@/components/TodoList";
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  name: "App",
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    TodoList
+  },
+
+  data: () => ({
+    todos: [
+      {
+        title: "Todo me 1",
+        done: false
+      },
+      {
+        title: "Todo me 2",
+        done: true
+      },
+      {
+        title: "Todo me 3",
+        done: false
+      },
+      {
+        title: "Todo me 4",
+        done: false
+      }
+    ]
+  }),
+
+  methods: {
+    clearList() {
+      while (this.todos.length) {
+        this.todos.pop();
+      }
+    },
+    createItem(item) {
+      this.todos.push(item);
+    }
+  }
+};
+</script>
